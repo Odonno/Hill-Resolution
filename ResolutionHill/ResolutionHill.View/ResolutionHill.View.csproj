@@ -94,6 +94,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ResolutionHill.Model\ResolutionHill.Model.csproj">
+      <Project>{d3f25eac-4152-40a9-9557-e16a56d01974}</Project>
+      <Name>ResolutionHill.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResolutionHill.ViewModel\ResolutionHill.ViewModel.csproj">
+      <Project>{20864a61-d391-43ef-92a1-863dd1c35915}</Project>
+      <Name>ResolutionHill.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
