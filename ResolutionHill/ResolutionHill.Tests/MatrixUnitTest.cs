@@ -14,11 +14,14 @@ namespace ResolutionHill.Tests
         public void Can_Calulate_Determinant_Matrix_Order_2()
         {
             // arrange
-            var matrix = new Matrix {Order = 2 };
-            matrix.Values[0, 0] = 3;
-            matrix.Values[0, 1] = 1;
-            matrix.Values[1, 0] = 5;
-            matrix.Values[1, 1] = 2;
+            var matrix = new Matrix
+            {
+                Values = new[,]
+                {
+                    {3, 1},
+                    {5, 2}
+                }
+            };
 
             // act
             var det = matrix.Determinant();
@@ -31,24 +34,50 @@ namespace ResolutionHill.Tests
         public void Can_Calulate_Determinant_Matrix_Order_3()
         {
             // arrange
-            var matrix = new Matrix { Order = 3 };
-            matrix.Values[0, 0] = 1;
-            matrix.Values[0, 1] = 2;
-            matrix.Values[0, 2] = 3;
-
-            matrix.Values[1, 0] = 4;
-            matrix.Values[1, 1] = 5;
-            matrix.Values[1, 2] = 6;
-
-            matrix.Values[2, 0] = 7;
-            matrix.Values[2, 1] = 8;
-            matrix.Values[2, 2] = 9;
+            var matrix = new Matrix
+            {
+                Values = new[,]
+                {
+                    {1,2,3},
+                    {4,5,6},
+                    {7,8,9}
+                }
+            };
 
             // act
             var det = matrix.Determinant();
 
             // assert
             Assert.AreEqual(0, det);
+        }
+
+        [TestMethod]
+        public void Can_Multiply_Matrix_Order_2()
+        {
+            // arrange
+            var matrix1 = new Matrix
+            {
+                Values = new[,]
+                {
+                    {3, 1}
+                }
+            };
+
+            var matrix2 = new Matrix
+            {
+                Values = new[,]
+                {
+                    {3, 1},
+                    {5, 2}
+                }
+            };
+
+            // act
+            var resultMatrix = matrix1.Multiply(matrix2);
+
+            // assert
+            Assert.AreEqual(14, resultMatrix.Values[0, 0]);
+            Assert.AreEqual(5, resultMatrix.Values[0, 1]);
         }
     }
 }

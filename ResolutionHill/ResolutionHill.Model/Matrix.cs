@@ -2,14 +2,16 @@
 {
     public class Matrix
     {
-        private int _order;
-        public int Order
-        {
-            get { return _order; }
-            set { _order = value; _values = new int[_order, _order]; }
-        }
+        public int? Order { get { return Height == Width ? (int?)Height : null; } }
+
+        public int Height { get { return Values.GetLength(0); } }
+        public int Width { get { return Values.GetLength(1); } }
 
         private int[,] _values = new int[0, 0];
-        public int[,] Values { get { return _values; } }
+        public int[,] Values
+        {
+            get { return _values; }
+            set { _values = value; }
+        }
     }
 }
