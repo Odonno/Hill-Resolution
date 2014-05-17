@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ResolutionHill.Model;
 
 namespace ResolutionHill.ViewModel.Helpers
@@ -49,6 +46,12 @@ namespace ResolutionHill.ViewModel.Helpers
                 }
             }
             return resultMatrix;
+        }
+
+        public static bool IsInvertible(this Matrix matrix)
+        {
+            int determinant = matrix.Determinant();
+            return (determinant != 0 && ValueHelper.PGCD(determinant, 26) == 1);
         }
     }
 }

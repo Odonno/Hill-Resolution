@@ -10,6 +10,6 @@
         }
 
         private int[,] _values = new int[0, 0];
-        public int[,] Values  { get { return _values; }  }
+        public int[,] Values { get { return _values; } }
     }
 }

@@ -40,5 +40,18 @@ namespace ResolutionHill.ViewModel.Helpers
                     throw new Exception();
             }
         }
+
+        public static int PGCD(int value1, int value2)
+        {
+            while (value1 != value2)
+            {
+                if (value1 > value2)
+                    value1 -= value2;
+                else
+                    value2 -= value1;
+            }
+
+            return value1;
+        }
     }
 }
