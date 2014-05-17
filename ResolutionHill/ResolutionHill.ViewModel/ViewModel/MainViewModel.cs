@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using ResolutionHill.Model;
 using ResolutionHill.ViewModel.ViewModel;
 
 namespace ResolutionVigenere.View.ViewModel
@@ -24,6 +25,8 @@ namespace ResolutionVigenere.View.ViewModel
     {
         #region Properties
 
+        private readonly HillText _hillText = new HillText();
+        public HillText HillText { get { return _hillText; } }
 
         #endregion
 
