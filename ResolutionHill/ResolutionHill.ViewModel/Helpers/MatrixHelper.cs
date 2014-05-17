@@ -7,22 +7,36 @@ namespace ResolutionHill.ViewModel.Helpers
     {
         public static int Determinant(this Matrix matrix)
         {
-            int i;
-            int det;
+            int i, j, j1, j2;
 
-            for (i = 0; i < matrix.Order - 1; i++)
+            if (matrix.Order < 1)
+                throw new Exception();
+
+            if (matrix.Order == 1)
+                return matrix.Values[0, 0];
+
+            if (matrix.Order == 2)
+                return matrix.Values[0, 0] * matrix.Values[1, 1] - matrix.Values[1, 0] * matrix.Values[0, 1];
+
+            int det = 0;
+            var subMatrix = new Matrix { Order = matrix.Order - 1 };
+
+            for (j1 = 0; j1 < matrix.Order; j1++)
             {
-                for (int j = i + 1; j < matrix.Order; j++)
+                for (i = 1; i < matrix.Order; i++)
                 {
-                    det = matrix.Values[j, i] / matrix.Values[i, i];
-                    for (int k = i; k < matrix.Order; k++)
-                        matrix.Values[j, k] = matrix.Values[j, k] - det * matrix.Values[i, k];
-                }
-            }
-            det = 1;
+                    j2 = 0;
 
-            for (i = 0; i < matrix.Order; i++)
-                det = det * matrix.Values[i, i];
+                    for (j = 0; j < matrix.Order; j++)
+                    {
+                        if (j == j1)
+                            continue;
+                        subMatrix.Values[i - 1, j2] = matrix.Values[i, j];
+                        j2++;
+                    }
+                }
+                det += (int)Math.Pow(-1.0, 1.0 + j1 + 1.0) * matrix.Values[0, j1] * Determinant(subMatrix);
+            }
 
             return det;
         }
@@ -48,7 +62,7 @@ namespace ResolutionHill.ViewModel.Helpers
             return resultMatrix;
         }
 
-        public static bool IsInvertible(this Matrix matrix)
+        public static bool IsInversible(this Matrix matrix)
         {
             int determinant = matrix.Determinant();
             return (determinant != 0 && ValueHelper.PGCD(determinant, 26) == 1);
