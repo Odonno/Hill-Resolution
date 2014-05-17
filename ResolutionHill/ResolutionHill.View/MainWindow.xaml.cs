@@ -24,7 +24,7 @@ namespace ResolutionHill.View
     {
         #region Properties
 
-        private MainViewModel _mainViewModel = Application.Current.Resources.Values.OfType<MainViewModel>().FirstOrDefault();
+        private readonly MainViewModel _mainViewModel = Application.Current.Resources.Values.OfType<MainViewModel>().FirstOrDefault();
 
         #endregion
 
@@ -77,10 +77,10 @@ namespace ResolutionHill.View
                         // set binding for the value
                         var binding = new Binding
                         {
-                            Source = _mainViewModel.HillText.Key,
+                            Source = _mainViewModel.HillText.Key.UnidimensionalValues[i * _mainViewModel.HillText.Key.Height + j],
                             Mode = BindingMode.TwoWay,
                             UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                            Path = new PropertyPath(string.Format("UnidimensionalValues[{0}]", i * _mainViewModel.HillText.Key.Height + j))
+                            Path = new PropertyPath("Value")
                         };
                         textBoxMatrixValue.SetBinding(TextBox.TextProperty, binding);
 

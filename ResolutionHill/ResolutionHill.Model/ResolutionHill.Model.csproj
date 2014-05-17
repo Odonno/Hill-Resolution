@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="HillText.cs" />
     <Compile Include="Matrix.cs" />
+    <Compile Include="MatrixCell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

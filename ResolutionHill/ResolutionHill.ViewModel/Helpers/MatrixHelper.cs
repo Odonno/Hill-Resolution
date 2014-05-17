@@ -16,13 +16,13 @@ namespace ResolutionHill.ViewModel.Helpers
                 throw new Exception();
 
             if (matrix.Order == 1)
-                return matrix.Values[0, 0];
+                return matrix.Values[0, 0].Value;
 
             if (matrix.Order == 2)
-                return matrix.Values[0, 0] * matrix.Values[1, 1] - matrix.Values[1, 0] * matrix.Values[0, 1];
+                return matrix.Values[0, 0].Value * matrix.Values[1, 1].Value - matrix.Values[1, 0].Value * matrix.Values[0, 1].Value;
 
             int det = 0;
-            var subMatrix = new Matrix { Values = new int[(int)matrix.Order - 1, (int)matrix.Order - 1] };
+            var subMatrix = new Matrix((int)matrix.Order - 1, (int)matrix.Order - 1);
 
             for (j1 = 0; j1 < matrix.Order; j1++)
             {
@@ -38,7 +38,7 @@ namespace ResolutionHill.ViewModel.Helpers
                         j2++;
                     }
                 }
-                det += (int)Math.Pow(-1.0, 1.0 + j1 + 1.0) * matrix.Values[0, j1] * Determinant(subMatrix);
+                det += (int)Math.Pow(-1.0, 1.0 + j1 + 1.0) * matrix.Values[0, j1].Value * Determinant(subMatrix);
             }
 
             return det;
@@ -46,15 +46,15 @@ namespace ResolutionHill.ViewModel.Helpers
 
         public static Matrix Multiply(this Matrix matrix1, Matrix matrix2)
         {
-            var resultMatrix = new Matrix { Values = new int[matrix1.Height, matrix2.Width] };
+            var resultMatrix = new Matrix(matrix1.Height, matrix2.Width);
 
             for (int i = 0; i < resultMatrix.Height; i++)
                 for (int j = 0; j < resultMatrix.Width; j++)
                 {
-                    resultMatrix.Values[i, j] = 0;
+                    resultMatrix.Values[i, j].Value = 0;
 
                     for (int k = 0; k < matrix1.Width; k++)
-                        resultMatrix.Values[i, j] += matrix1.Values[i, k] * matrix2.Values[k, j];
+                        resultMatrix.Values[i, j].Value += matrix1.Values[i, k].Value * matrix2.Values[k, j].Value;
                 }
 
             return resultMatrix;

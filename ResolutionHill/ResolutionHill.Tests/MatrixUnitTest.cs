@@ -14,12 +14,12 @@ namespace ResolutionHill.Tests
         public void Can_Calulate_Determinant_Matrix_Order_2()
         {
             // arrange
-            var matrix = new Matrix
+            var matrix = new Matrix(2, 2)
             {
                 Values = new[,]
                 {
-                    {3, 1},
-                    {5, 2}
+                    {new MatrixCell {Value = 3}, new MatrixCell {Value = 1}},
+                    {new MatrixCell {Value = 5}, new MatrixCell {Value = 2}}
                 }
             };
 
@@ -34,13 +34,13 @@ namespace ResolutionHill.Tests
         public void Can_Calulate_Determinant_Matrix_Order_3()
         {
             // arrange
-            var matrix = new Matrix
+            var matrix = new Matrix(3, 3)
             {
                 Values = new[,]
                 {
-                    {1,2,3},
-                    {4,5,6},
-                    {7,8,9}
+                    {new MatrixCell {Value = 1}, new MatrixCell {Value = 2}, new MatrixCell {Value = 3}},
+                    {new MatrixCell {Value = 4}, new MatrixCell {Value = 5}, new MatrixCell {Value = 6}},
+                    {new MatrixCell {Value = 7}, new MatrixCell {Value = 8}, new MatrixCell {Value = 9}}
                 }
             };
 
@@ -55,20 +55,20 @@ namespace ResolutionHill.Tests
         public void Can_Multiply_Matrix_Order_2()
         {
             // arrange
-            var matrix1 = new Matrix
+            var matrix1 = new Matrix(1, 2)
             {
                 Values = new[,]
                 {
-                    {3, 1}
+                    {new MatrixCell {Value = 3}, new MatrixCell {Value = 1}}
                 }
             };
 
-            var matrix2 = new Matrix
+            var matrix2 = new Matrix(2, 2)
             {
                 Values = new[,]
                 {
-                    {3, 1},
-                    {5, 2}
+                    {new MatrixCell {Value = 3}, new MatrixCell {Value = 1}},
+                    {new MatrixCell {Value = 5}, new MatrixCell {Value = 2}}
                 }
             };
 
@@ -76,20 +76,20 @@ namespace ResolutionHill.Tests
             var resultMatrix = matrix1.Multiply(matrix2);
 
             // assert
-            Assert.AreEqual(14, resultMatrix.Values[0, 0]);
-            Assert.AreEqual(5, resultMatrix.Values[0, 1]);
+            Assert.AreEqual(14, resultMatrix.Values[0, 0].Value);
+            Assert.AreEqual(5, resultMatrix.Values[0, 1].Value);
         }
 
         [TestMethod]
         public void Is_Matrix_Invertible()
         {
             // arrange
-            var matrix = new Matrix
+            var matrix = new Matrix(2, 2)
             {
                 Values = new[,]
                 {
-                    {7, 3},
-                    {2, 3}
+                    {new MatrixCell {Value = 7}, new MatrixCell {Value = 3}},
+                    {new MatrixCell {Value = 2}, new MatrixCell {Value = 3}}
                 }
             };
 
@@ -104,12 +104,12 @@ namespace ResolutionHill.Tests
         public void Is_Matrix_Not_Invertible()
         {
             // arrange
-            var matrix = new Matrix
+            var matrix = new Matrix(2, 2)
             {
                 Values = new[,]
                 {
-                    {9, 3},
-                    {2, 4}
+                    {new MatrixCell {Value = 9}, new MatrixCell {Value = 3}},
+                    {new MatrixCell {Value = 2}, new MatrixCell {Value = 4}}
                 }
             };
 

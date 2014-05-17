@@ -13,7 +13,7 @@ namespace ResolutionHill.Model
             set { _clearedText = value; RaisePropertyChanged("ClearedText"); }
         }
 
-        private Matrix _key = new Matrix { Values = new int[2, 2] };
+        private Matrix _key = new Matrix(2, 2);
         public Matrix Key
         {
             get { return _key; }
