@@ -60,7 +60,7 @@ namespace ResolutionHill.ViewModel.Helpers
             return resultMatrix;
         }
 
-        public static bool IsInversible(this Matrix matrix)
+        public static bool IsInvertible(this Matrix matrix)
         {
             int determinant = matrix.Determinant();
             return (determinant != 0 && ValueHelper.PGCD(determinant, 26) == 1);

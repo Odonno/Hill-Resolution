@@ -79,5 +79,45 @@ namespace ResolutionHill.Tests
             Assert.AreEqual(14, resultMatrix.Values[0, 0]);
             Assert.AreEqual(5, resultMatrix.Values[0, 1]);
         }
+
+        [TestMethod]
+        public void Is_Matrix_Invertible()
+        {
+            // arrange
+            var matrix = new Matrix
+            {
+                Values = new[,]
+                {
+                    {7, 3},
+                    {2, 3}
+                }
+            };
+
+            // act
+            bool isInvertible = matrix.IsInvertible();
+
+            // assert
+            Assert.IsTrue(isInvertible);
+        }
+
+        [TestMethod]
+        public void Is_Matrix_Not_Invertible()
+        {
+            // arrange
+            var matrix = new Matrix
+            {
+                Values = new[,]
+                {
+                    {9, 3},
+                    {2, 4}
+                }
+            };
+
+            // act
+            bool isInvertible = matrix.IsInvertible();
+
+            // assert
+            Assert.IsFalse(isInvertible);
+        }
     }
 }
