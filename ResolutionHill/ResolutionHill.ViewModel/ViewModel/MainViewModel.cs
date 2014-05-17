@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -28,6 +29,28 @@ namespace ResolutionVigenere.View.ViewModel
         private readonly HillText _hillText = new HillText();
         public HillText HillText { get { return _hillText; } }
 
+        public int _keyOrder = 2;
+        public int KeyOrder
+        {
+            get { return _keyOrder; }
+            set
+            {
+                if (value < 2)
+                    value = 2;
+
+                if (value == _keyOrder)
+                    return;
+
+                _keyOrder = value;
+                HillText.Key.Values = new int[value, value]; 
+                RaisePropertyChanged("KeyOrder");
+            }
+        }
+
+        public ICommand FindCryptedTextCommand { get; private set; }
+        public ICommand FindKeyCommand { get; private set; }
+        public ICommand FindClearedTextCommand { get; private set; }
+
         #endregion
 
 
@@ -46,6 +69,10 @@ namespace ResolutionVigenere.View.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+
+            FindCryptedTextCommand = new RelayCommand(FindCryptedText, CanFindCryptedText);
+            FindKeyCommand = new RelayCommand(FindKey, CanFindKey);
+            FindClearedTextCommand = new RelayCommand(FindClearedText, CanFindClearedText);
         }
 
         #endregion
@@ -53,6 +80,32 @@ namespace ResolutionVigenere.View.ViewModel
 
         #region Methods
 
+        public bool CanFindCryptedText()
+        {
+            throw new NotImplementedException();
+        }
+        public void FindCryptedText()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanFindKey()
+        {
+            throw new NotImplementedException();
+        }
+        public void FindKey()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanFindClearedText()
+        {
+            throw new NotImplementedException();
+        }
+        public void FindClearedText()
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
     }

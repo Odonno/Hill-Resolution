@@ -1,8 +1,44 @@
 ﻿<Window x:Class="ResolutionHill.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Hill Resolution" Height="350" Width="525"
+        DataContext="{Binding Source={StaticResource Main}}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         
+        <TextBox Grid.Row="0" x:Name="tbClearedText" Margin="10" Text="{Binding Path=HillText.ClearedText, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBox x:Name="tbKeyOrder" Width="50" Text="{Binding Path=KeyOrder, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+        </Grid>
+
+        <TextBox Grid.Row="2" x:Name="tbCryptedText" Margin="10" Text="{Binding Path=HillText.CryptedText, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Grid Grid.Row="3" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" x:Name="btFindCryptedText" Content="Find crypted text" Margin="10" Command="{Binding Path=FindCryptedTextCommand}" />
+
+            <Button Grid.Column="1" x:Name="btFindKey" Content="Find key" Margin="10" Command="{Binding Path=FindKeyCommand}" />
+
+            <Button Grid.Column="2" x:Name="btFindClearedText" Content="Find cleared text" Margin="10" Command="{Binding Path=FindClearedTextCommand}" />
+        </Grid>
     </Grid>
 </Window>
