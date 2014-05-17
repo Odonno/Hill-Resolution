@@ -11,7 +11,22 @@
         public int[,] Values
         {
             get { return _values; }
-            set { _values = value; }
+            set
+            {
+                _values = value;
+
+                UnidimensionalValues = new int[Width * Height];
+                for (int i = 0; i < Width; i++)
+                    for (int j = 0; j < Height; j++)
+                        UnidimensionalValues[i*Height + j] = _values[i, j];
+            }
+        }
+
+        private int[] _unidimensionalValues = new int[0];
+        public int[] UnidimensionalValues
+        {
+            get { return _unidimensionalValues; }
+            set { _unidimensionalValues = value; }
         }
     }
 }

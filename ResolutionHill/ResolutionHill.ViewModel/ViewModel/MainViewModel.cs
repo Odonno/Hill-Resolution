@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using ResolutionHill.Model;
+using ResolutionHill.ViewModel.Helpers;
 using ResolutionHill.ViewModel.ViewModel;
 
 namespace ResolutionVigenere.View.ViewModel
@@ -42,7 +39,7 @@ namespace ResolutionVigenere.View.ViewModel
                     return;
 
                 _keyOrder = value;
-                HillText.Key.Values = new int[value, value]; 
+                HillText.Key.Values = new int[value, value];
                 RaisePropertyChanged("KeyOrder");
             }
         }
@@ -82,7 +79,7 @@ namespace ResolutionVigenere.View.ViewModel
 
         public bool CanFindCryptedText()
         {
-            throw new NotImplementedException();
+            return HillText.Key.IsInvertible();
         }
         public void FindCryptedText()
         {
@@ -91,7 +88,9 @@ namespace ResolutionVigenere.View.ViewModel
 
         public bool CanFindKey()
         {
-            throw new NotImplementedException();
+            return HillText.CryptedText != null && HillText.ClearedText != null &&
+                   HillText.ClearedText.Length >= 4 && HillText.CryptedText.Length >= 4 &&
+                   HillText.ClearedText.Length == HillText.CryptedText.Length;
         }
         public void FindKey()
         {
@@ -100,7 +99,7 @@ namespace ResolutionVigenere.View.ViewModel
 
         public bool CanFindClearedText()
         {
-            throw new NotImplementedException();
+            return HillText.Key.IsInvertible();
         }
         public void FindClearedText()
         {
