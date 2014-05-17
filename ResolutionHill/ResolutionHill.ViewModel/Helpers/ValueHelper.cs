@@ -4,13 +4,18 @@ namespace ResolutionHill.ViewModel.Helpers
 {
     public static class ValueHelper
     {
-        public static int InverseModulo26(int value)
+        public static int Modulo26(int value)
         {
-            int valueModulo26 = value%26;
+            int valueModulo26 = value % 26;
             if (valueModulo26 < 0)
                 valueModulo26 += 26;
 
-            switch (valueModulo26)
+            return valueModulo26;
+        }
+
+        public static int InverseModulo26(int value)
+        {
+            switch (Modulo26(value))
             {
                 case 1:
                     return 1;
