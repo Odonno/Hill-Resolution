@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\MatrixHelper.cs" />
+    <Compile Include="Helpers\ValueHelper.cs" />
     <Compile Include="Infrastructure\MVVM\Command\RelayCommand.cs" />
     <Compile Include="Infrastructure\MVVM\Command\RelayCommandGeneric.cs" />
     <Compile Include="Infrastructure\MVVM\Helpers\IExecuteWithObject.cs" />
