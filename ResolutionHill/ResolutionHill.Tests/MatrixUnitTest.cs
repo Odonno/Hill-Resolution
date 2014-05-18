@@ -119,5 +119,47 @@ namespace ResolutionHill.Tests
             // assert
             Assert.IsFalse(isInvertible);
         }
+
+        [TestMethod]
+        public void Can_Calculate_Correct_PGCD()
+        {
+            // arrange
+            int x = 1;
+            int y = 26;
+
+            // act
+            int result = ValueHelper.PGCD(x, y);
+
+            // assert
+            Assert.AreEqual(result, 1);
+        }
+
+        [TestMethod]
+        public void Can_Calculate_Another_Correct_PGCD()
+        {
+            // arrange
+            int x = 520;
+            int y = 26;
+
+            // act
+            int result = ValueHelper.PGCD(x, y);
+
+            // assert
+            Assert.AreEqual(result, 26);
+        }
+
+        [TestMethod]
+        public void Can_Calculate_Wrong_PGCD()
+        {
+            // arrange
+            int x = 2;
+            int y = 26;
+
+            // act
+            int result = ValueHelper.PGCD(x, y);
+
+            // assert
+            Assert.AreNotEqual(result, 1);
+        }
     }
 }

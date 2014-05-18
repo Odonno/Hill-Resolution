@@ -48,12 +48,20 @@ namespace ResolutionHill.ViewModel.Helpers
 
         public static int PGCD(int value1, int value2)
         {
-            while (value1 != value2)
+            int modulo = 1;
+
+            if (value2 > value1)
             {
-                if (value1 > value2)
-                    value1 -= value2;
-                else
-                    value2 -= value1;
+                int temp = value1;
+                value1 = value2;
+                value2 = temp;
+            }
+
+            while (modulo != 0)
+            {
+                modulo = value1 % value2;
+                value1 = value2;
+                value2 = modulo;
             }
 
             return value1;
