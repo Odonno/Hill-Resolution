@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using ResolutionHill.Model;
 
 namespace ResolutionHill.ViewModel.Helpers
@@ -89,6 +90,24 @@ namespace ResolutionHill.ViewModel.Helpers
         {
             int determinant = matrix.Determinant();
             return (determinant != 0 && ValueHelper.PGCD(determinant, 26) == 1);
+        }
+
+        public static Matrix ConvertStringToMatrix(this string text)
+        {
+            var matrix = new Matrix(1, text.Length);
+            for (int i = 0; i < matrix.Width; i++)
+                matrix.Values[0, i].Value = text[i].CharToIntModulo26();
+
+            return matrix;
+        }
+
+        public static string ConvertMatrixToString(this Matrix matrix)
+        {
+            var stringBuilder = new StringBuilder(matrix.Width);
+            for (int i = 0; i < matrix.Width; i++)
+                stringBuilder.Append(matrix.Values[0, i].Value.IntToCharModulo26());
+
+            return stringBuilder.ToString();
         }
     }
 }
