@@ -60,6 +60,31 @@ namespace ResolutionHill.ViewModel.Helpers
             return resultMatrix;
         }
 
+        public static Matrix InvertibleMatrix(this Matrix matrix)
+        {
+            if (!matrix.IsInvertible())
+            throw new Exception();
+
+            int determinant = matrix.Determinant();
+            int inverseDeterminant = ValueHelper.InverseModulo26(ValueHelper.Modulo26(determinant));
+
+            var resultMatrix = new Matrix(matrix.Height, matrix.Width);
+
+            // get the inverse of a matrix
+            // TODO : do it generic (not only for order 2)
+            resultMatrix.Values[0, 0].Value = matrix.Values[1, 1].Value;
+            resultMatrix.Values[0, 1].Value = -matrix.Values[0, 1].Value;
+            resultMatrix.Values[1, 0].Value = -matrix.Values[1, 0].Value;
+            resultMatrix.Values[1, 1].Value = matrix.Values[0, 0].Value;
+
+            for (int i = 0; i < resultMatrix.Height; i++)
+                for (int j = 0; j < resultMatrix.Width; j++)
+                    // multiply each value of the matrix by the "inverseDeterminant" and take care of the modulo (26)
+                    resultMatrix.Values[i, j].Value = ValueHelper.Modulo26(resultMatrix.Values[i, j].Value * inverseDeterminant);
+
+            return resultMatrix;
+        }
+
         public static bool IsInvertible(this Matrix matrix)
         {
             int determinant = matrix.Determinant();

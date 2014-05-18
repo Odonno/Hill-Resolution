@@ -80,7 +80,7 @@ namespace ResolutionVigenere.View.ViewModel
 
         public bool CanFindCryptedText()
         {
-            return HillText.Key != null && HillText.Key.Order != null && HillText.ClearedText != null &&
+            return HillText.Key != null && HillText.Key.Order != null && HillText.ClearedText != null && HillText.ClearedText.Length > HillText.Key.Order &&
                    HillText.ClearedText.Length % HillText.Key.Order == 0 && HillText.Key.IsInvertible();
         }
         public void FindCryptedText()
@@ -88,11 +88,11 @@ namespace ResolutionVigenere.View.ViewModel
             if (HillText.Key.Order != null)
             {
                 int order = (int)HillText.Key.Order;
-                string cryptedTextCorrect = HillText.ClearedText.OnlyAToZ();
+                string clearedTextCorrect = HillText.ClearedText.OnlyAToZ();
 
-                int textSegmentsCount = cryptedTextCorrect.Length / order;
+                int textSegmentsCount = clearedTextCorrect.Length / order;
 
-                var cryptedTextBuilder = new StringBuilder(cryptedTextCorrect.Length);
+                var cryptedTextBuilder = new StringBuilder(clearedTextCorrect.Length);
                 var temporaryTextBuilder = new StringBuilder(order);
 
                 var temporaryMatrix = new Matrix(1, order);
@@ -103,7 +103,7 @@ namespace ResolutionVigenere.View.ViewModel
 
                     // Get N values of letter in cleared text
                     for (int j = 0; j < order; j++)
-                        temporaryMatrix.Values[0, j].Value = cryptedTextCorrect[i * order + j].CharToIntModulo26();
+                        temporaryMatrix.Values[0, j].Value = clearedTextCorrect[i * order + j].CharToIntModulo26();
 
                     // Calculate the new matrix using the previous values and the key matrix
                     temporaryMatrix = temporaryMatrix.Multiply(HillText.Key);
@@ -116,7 +116,7 @@ namespace ResolutionVigenere.View.ViewModel
                     cryptedTextBuilder.Append(temporaryTextBuilder.ToString());
                 }
 
-                // get the final crypted and save it in the model
+                // get the final crypted text and save it in the model
                 HillText.CryptedText = cryptedTextBuilder.ToString();
             }
         }
@@ -134,12 +134,46 @@ namespace ResolutionVigenere.View.ViewModel
 
         public bool CanFindClearedText()
         {
-            return HillText.Key != null && HillText.Key.Order != null && HillText.CryptedText != null &&
+            return HillText.Key != null && HillText.Key.Order != null && HillText.CryptedText != null && HillText.CryptedText.Length > HillText.Key.Order &&
                    HillText.CryptedText.Length % HillText.Key.Order == 0 && HillText.Key.IsInvertible();
         }
         public void FindClearedText()
         {
-            throw new NotImplementedException();
+            if (HillText.Key.Order != null)
+            {
+                int order = (int)HillText.Key.Order;
+                string cryptedTextCorrect = HillText.CryptedText.OnlyAToZ();
+
+                int textSegmentsCount = cryptedTextCorrect.Length / order;
+
+                var clearedTextBuilder = new StringBuilder(cryptedTextCorrect.Length);
+                var temporaryTextBuilder = new StringBuilder(order);
+
+                var temporaryMatrix = new Matrix(1, order);
+                var invertibleKeyMatrix = HillText.Key.InvertibleMatrix();
+
+                for (int i = 0; i < textSegmentsCount; i++)
+                {
+                    temporaryTextBuilder.Clear();
+
+                    // Get N values of letter in crypted text
+                    for (int j = 0; j < order; j++)
+                        temporaryMatrix.Values[0, j].Value = cryptedTextCorrect[i * order + j].CharToIntModulo26();
+
+                    // Calculate the new matrix using the previous values and the invertible key matrix
+                    temporaryMatrix = temporaryMatrix.Multiply(invertibleKeyMatrix);
+
+                    // Append all new crypted letter from the previous calculation matrix
+                    for (int j = 0; j < order; j++)
+                        temporaryTextBuilder.Append(temporaryMatrix.Values[0, j].Value.IntToCharModulo26());
+
+                    // Add the the segment cleared text to the builder of the full cleared text
+                    clearedTextBuilder.Append(temporaryTextBuilder.ToString());
+                }
+
+                // get the final cleared text and save it in the model
+                HillText.ClearedText = clearedTextBuilder.ToString();
+            }
         }
 
         #endregion
